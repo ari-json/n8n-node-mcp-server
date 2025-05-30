@@ -1,0 +1,78 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Cache pip packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-asyncio pytest-cov
+
+    - name: Verify imports
+      run: |
+        python -c "from mcp.server.fastmcp import FastMCP; print('FastMCP imported successfully')"
+        python -c "import httpx; print('httpx imported successfully')"
+
+    - name: Test server startup
+      run: |
+        python -c "import server; print('Server module imported successfully')"
+
+    - name: Run tests
+      run: |
+        # Create a simple test if none exist
+        mkdir -p tests
+        cat > tests/test_imports.py << 'EOF'
+        """Basic import tests."""
+        import pytest
+
+        def test_server_imports():
+            """Test that server module can be imported."""
+            import server
+            assert hasattr(server, 'mcp')
+            assert hasattr(server, 'list_all_nodes')
+            assert hasattr(server, 'get_node_details')
+            assert hasattr(server, 'search_nodes')
+            assert hasattr(server, 'get_node_code_snippet')
+            assert hasattr(server, 'list_community_nodes')
+
+        def test_dependencies_available():
+            """Test that all dependencies are available."""
+            import httpx
+            import mcp
+            assert httpx.__version__
+        EOF
+        
+        pytest tests/ -v
+
+    - name: Check code quality
+      continue-on-error: true
+      run: |
+        pip install flake8
+        flake8 server.py --max-line-length=100 --statistics 
