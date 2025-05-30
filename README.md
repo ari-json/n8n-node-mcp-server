@@ -29,58 +29,70 @@ This MCP server allows Claude Desktop to directly access N8N's node repository, 
 ## 📋 Prerequisites
 
 - Python 3.9 or higher
-- pip (Python package installer)
 - Claude Desktop application
 - (Optional) GitHub Personal Access Token for higher rate limits
 
 ## 🚀 Installation
 
-### 1. Clone the repository
+### Option A: Using Claude's MCP Installer (Recommended)
 
+Simply ask Claude to install it for you:
+```
+"Install the N8N Node MCP Server from GitHub"
+```
+
+Or use the direct command:
+```
+install_repo_mcp_server(name="github:ari-json/n8n-node-mcp-server")
+```
+
+### Option B: Using uvx (Command Line)
+
+```bash
+uvx --from git+https://github.com/ari-json/n8n-node-mcp-server n8n-node-mcp-server
+```
+
+### Option C: Using pip
+
+```bash
+pip install git+https://github.com/ari-json/n8n-node-mcp-server
+```
+
+### Option D: Manual Installation (Development)
+
+1. Clone the repository:
 ```bash
 git clone https://github.com/ari-json/n8n-node-mcp-server.git
 cd n8n-node-mcp-server
 ```
 
-### 2. Create a virtual environment (recommended)
-
+2. Create a virtual environment:
 ```bash
 python -m venv venv
-
-# On macOS/Linux:
-source venv/bin/activate
-
-# On Windows:
-venv\Scripts\activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-### 3. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Install the package (optional)
-
+3. Install in development mode:
 ```bash
 pip install -e .
 ```
 
 ## ⚙️ Configuration
 
-### Basic Configuration
+### After Installation
 
-Add the following configuration to your Claude Desktop config file:
+The installer will automatically configure Claude Desktop, but you can also manually edit:
 
 **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
 **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+
+### Basic Configuration
 
 ```json
 {
   "mcpServers": {
     "n8n-nodes": {
-      "command": "python",
-      "args": ["/absolute/path/to/n8n-node-mcp-server/server.py"],
+      "command": "n8n-node-mcp-server",
       "env": {}
     }
   }
@@ -104,8 +116,7 @@ To avoid GitHub API rate limits (60 requests/hour → 5,000 requests/hour):
 {
   "mcpServers": {
     "n8n-nodes": {
-      "command": "python",
-      "args": ["/absolute/path/to/n8n-node-mcp-server/server.py"],
+      "command": "n8n-node-mcp-server",
       "env": {
         "GITHUB_TOKEN": "ghp_your_token_here"
       }
@@ -115,7 +126,6 @@ To avoid GitHub API rate limits (60 requests/hour → 5,000 requests/hour):
 ```
 
 **Important**: 
-- Replace `/absolute/path/to/n8n-node-mcp-server` with the actual path to your installation
 - Replace `ghp_your_token_here` with your actual GitHub token
 - Keep your token secure and never commit it to version control
 
@@ -171,10 +181,10 @@ npm install -g @modelcontextprotocol/inspector
 2. Run the inspector:
 ```bash
 # Without GitHub token
-mcp-inspector python /path/to/server.py
+mcp-inspector n8n-node-mcp-server
 
 # With GitHub token
-GITHUB_TOKEN=ghp_your_token_here mcp-inspector python /path/to/server.py
+GITHUB_TOKEN=ghp_your_token_here mcp-inspector n8n-node-mcp-server
 ```
 
 3. Open http://localhost:5173 in your browser to test the tools interactively
@@ -194,17 +204,13 @@ GITHUB_TOKEN=ghp_your_token_here python examples/test_connection.py
 ### Common Issues
 
 **"Server not responding" in Claude Desktop**
-- Ensure the path in your config file is absolute and correct
-- Check that Python is in your system PATH
-- Verify the server runs without errors: `python server.py`
+- Ensure the server is installed: `which n8n-node-mcp-server`
+- Check that the command runs without errors: `n8n-node-mcp-server`
+- Verify your Claude Desktop config is correct
 
 **"Module not found" errors**
-- Make sure you've activated your virtual environment
-- Reinstall dependencies: `pip install -r requirements.txt`
-
-**"Permission denied" errors**
-- Ensure the server.py file is executable: `chmod +x server.py`
-- Check file permissions in the installation directory
+- Reinstall the package: `pip install --upgrade git+https://github.com/ari-json/n8n-node-mcp-server`
+- Make sure you're using the correct Python environment
 
 **Rate limiting from GitHub**
 - Without a token: 60 requests/hour limit

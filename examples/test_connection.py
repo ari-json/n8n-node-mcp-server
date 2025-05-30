@@ -10,7 +10,8 @@ import os
 # Add parent directory to path to import server
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import server
+# Import from the new package structure
+from src.n8n_node_mcp_server import server
 
 
 async def test_connection():
