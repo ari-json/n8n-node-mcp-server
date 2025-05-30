@@ -18,7 +18,7 @@ setup(
     description="MCP server for accessing N8N node information",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/YOUR_USERNAME/n8n-node-mcp-server",
+    url="https://github.com/ari-json/n8n-node-mcp-server",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 3 - Alpha",

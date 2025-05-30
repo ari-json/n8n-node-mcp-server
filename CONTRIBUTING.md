@@ -165,7 +165,7 @@ Brief description of the changes
 
 ```bash
 # Clone your fork
-git clone https://github.com/YOUR_USERNAME/n8n-node-mcp-server.git
+git clone https://github.com/ari-json/n8n-node-mcp-server.git
 cd n8n-node-mcp-server
 
 # Create a virtual environment
@@ -325,8 +325,8 @@ Document new MCP tools with:
 If you need help:
 
 1. Check the [README](README.md) and documentation
-2. Search [existing issues](https://github.com/YOUR_USERNAME/n8n-node-mcp-server/issues)
-3. Ask in [discussions](https://github.com/YOUR_USERNAME/n8n-node-mcp-server/discussions)
+2. Search [existing issues](https://github.com/ari-json/n8n-node-mcp-server/issues)
+3. Ask in [discussions](https://github.com/ari-json/n8n-node-mcp-server/discussions)
 4. Create an issue if needed
 
 ## Recognition

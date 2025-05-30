@@ -45,8 +45,8 @@ gh repo create n8n-node-mcp-server --public --description "MCP server for access
 7. Run these commands:
 
 ```bash
-# Add the remote origin (replace YOUR_USERNAME)
-git remote add origin https://github.com/YOUR_USERNAME/n8n-node-mcp-server.git
+# Add the remote origin (replace ari-json)
+git remote add origin https://github.com/ari-json/n8n-node-mcp-server.git
 
 # Push to GitHub
 git push -u origin main
@@ -57,11 +57,11 @@ git push -u origin main
 After creating the repository, update all placeholder URLs:
 
 ```bash
-# Update URLs in all files (replace YOUR_USERNAME with your actual GitHub username)
-find . -type f -name "*.md" -o -name "*.toml" -o -name "*.py" | xargs sed -i '' 's/YOUR_USERNAME/YOUR_ACTUAL_USERNAME/g'
+# Update URLs in all files (replace ari-json with your actual GitHub username)
+find . -type f -name "*.md" -o -name "*.toml" -o -name "*.py" | xargs sed -i '' 's/ari-json/YOUR_ACTUAL_USERNAME/g'
 
 # On Linux, use this instead:
-# find . -type f \( -name "*.md" -o -name "*.toml" -o -name "*.py" \) -exec sed -i 's/YOUR_USERNAME/YOUR_ACTUAL_USERNAME/g' {} +
+# find . -type f \( -name "*.md" -o -name "*.toml" -o -name "*.py" \) -exec sed -i 's/ari-json/YOUR_ACTUAL_USERNAME/g' {} +
 
 # Commit the changes
 git add -A
@@ -170,9 +170,9 @@ gh repo create n8n-node-mcp-server --public \
 # Update URLs
 echo "Updating repository URLs..."
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    find . -type f \( -name "*.md" -o -name "*.toml" -o -name "*.py" \) -exec sed -i '' "s/YOUR_USERNAME/$GITHUB_USERNAME/g" {} +
+    find . -type f \( -name "*.md" -o -name "*.toml" -o -name "*.py" \) -exec sed -i '' "s/ari-json/$GITHUB_USERNAME/g" {} +
 else
-    find . -type f \( -name "*.md" -o -name "*.toml" -o -name "*.py" \) -exec sed -i "s/YOUR_USERNAME/$GITHUB_USERNAME/g" {} +
+    find . -type f \( -name "*.md" -o -name "*.toml" -o -name "*.py" \) -exec sed -i "s/ari-json/$GITHUB_USERNAME/g" {} +
 fi
 
 # Commit and push URL updates

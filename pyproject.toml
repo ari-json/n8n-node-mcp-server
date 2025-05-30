@@ -29,9 +29,9 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/YOUR_USERNAME/n8n-node-mcp-server"
-"Bug Tracker" = "https://github.com/YOUR_USERNAME/n8n-node-mcp-server/issues"
-"Documentation" = "https://github.com/YOUR_USERNAME/n8n-node-mcp-server#readme"
+"Homepage" = "https://github.com/ari-json/n8n-node-mcp-server"
+"Bug Tracker" = "https://github.com/ari-json/n8n-node-mcp-server/issues"
+"Documentation" = "https://github.com/ari-json/n8n-node-mcp-server#readme"
 
 [project.scripts]
 n8n-mcp-server = "server:main"

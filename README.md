@@ -38,7 +38,7 @@ This MCP server allows Claude Desktop to directly access N8N's node repository, 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/n8n-node-mcp-server.git
+git clone https://github.com/ari-json/n8n-node-mcp-server.git
 cd n8n-node-mcp-server
 ```
 
