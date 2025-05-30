@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - 2024-01-XX
+
+### Added
+- Support for AI/LangChain nodes from `packages/@n8n/nodes-langchain/`
+- New `list_ai_nodes` tool to list all AI-specific nodes by category
+- Enhanced search to include both core and AI packages
+- Node details now show package location (core vs langchain)
+
+### Changed
+- `list_all_nodes` now returns nodes from both core and AI packages
+- `search_nodes` searches across both packages
+- `get_node_details` checks both packages and shows category for AI nodes
+- `get_node_code_snippet` supports AI nodes in their category subdirectories
+
 ## [0.2.0] - 2024-01-XX
 
 ### Changed
@@ -54,6 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - No credentials or sensitive data stored
 - All data fetched directly from public GitHub and npm APIs
 
+[0.2.1]: https://github.com/ari-json/n8n-node-mcp-server/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/ari-json/n8n-node-mcp-server/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/ari-json/n8n-node-mcp-server/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/ari-json/n8n-node-mcp-server/releases/tag/v0.1.0 

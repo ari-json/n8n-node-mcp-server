@@ -1,6 +1,6 @@
 {
   "name": "@ari-json/n8n-node-mcp-server",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "MCP server for accessing N8N node information through Claude Desktop",
   "main": "index.js",
   "type": "module",

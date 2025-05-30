@@ -5,7 +5,7 @@
 [![MCP](https://img.shields.io/badge/MCP-Compatible-green.svg)](https://github.com/modelcontextprotocol)
 [![npm](https://img.shields.io/npm/v/@ari-json/n8n-node-mcp-server)](https://www.npmjs.com/package/@ari-json/n8n-node-mcp-server)
 
-A Model Context Protocol (MCP) server that provides seamless access to N8N node information directly from N8N's GitHub repository. Query, search, and explore N8N's extensive node ecosystem through Claude Desktop.
+A Model Context Protocol (MCP) server that provides seamless access to N8N node information directly from N8N's GitHub repository. Query, search, and explore N8N's extensive node ecosystem through Claude Desktop, including both core nodes and AI/LangChain nodes.
 
 ## 🤔 What is this?
 
@@ -14,18 +14,33 @@ This project combines two powerful technologies:
 - **MCP (Model Context Protocol)**: An open protocol that enables seamless integration between AI assistants and external data sources
 - **N8N**: A powerful workflow automation tool with hundreds of integrations
 
-This MCP server allows Claude Desktop to directly access N8N's node repository, making it easy to discover nodes, understand their capabilities, and get implementation details.
+This MCP server allows Claude Desktop to directly access N8N's node repository, making it easy to discover nodes, understand their capabilities, and get implementation details for both core nodes and AI/LangChain nodes.
 
 ## ✨ Features
 
 ### Available Tools
 
-1. **`list_all_nodes`** - Get a comprehensive list of all N8N nodes available in the official repository
-2. **`get_node_details`** - Retrieve detailed information about a specific node including its configuration and capabilities
-3. **`search_nodes`** - Search for nodes by keyword to find relevant integrations quickly
-4. **`get_node_code_snippet`** - View the source code of any node to understand its implementation
-5. **`list_community_nodes`** - Discover community-contributed N8N nodes available on npm
-6. **`check_rate_limit`** - Check your current GitHub API rate limit status
+1. **`list_all_nodes`** - Get a comprehensive list of all N8N nodes from both core and AI packages
+2. **`list_ai_nodes`** - List specifically AI/LangChain nodes (agents, chains, LLMs, vector stores, etc.)
+3. **`get_node_details`** - Retrieve detailed information about any node including its package location
+4. **`search_nodes`** - Search for nodes by keyword across both core and AI packages
+5. **`get_node_code_snippet`** - View the source code of any node to understand its implementation
+6. **`list_community_nodes`** - Discover community-contributed N8N nodes available on npm
+7. **`check_rate_limit`** - Check your current GitHub API rate limit status
+
+### Node Coverage
+
+This server provides access to:
+- **Core Nodes** (~300+): All standard N8N nodes from `packages/nodes-base/`
+- **AI/LangChain Nodes**: All AI-powered nodes from `packages/@n8n/nodes-langchain/` including:
+  - AI Agents
+  - AI Chains
+  - LLM integrations (OpenAI, Anthropic, Cohere, etc.)
+  - Vector Stores (Pinecone, Qdrant, etc.)
+  - Embeddings
+  - Memory systems
+  - Output parsers
+  - AI tools
 
 ## 📋 Prerequisites
 
@@ -143,19 +158,26 @@ Once configured, you can interact with N8N nodes through Claude Desktop:
 "Show me all the N8N nodes available"
 ```
 
+**List AI/LangChain nodes:**
+```
+"Show me all AI and LangChain nodes in N8N"
+```
+
 **Search for specific integrations:**
 ```
-"Find all N8N nodes related to Google services"
+"Find all N8N nodes related to OpenAI"
+"Search for vector store nodes"
 ```
 
 **Get node details:**
 ```
-"Tell me about the Telegram node in N8N"
+"Tell me about the AI Agent node in N8N"
+"What can the OpenAI Chat Model node do?"
 ```
 
 **View node implementation:**
 ```
-"Show me the code for the HTTP Request node"
+"Show me the code for the AI Agent node"
 ```
 
 **Discover community nodes:**
