@@ -1,0 +1,42 @@
+{
+  "name": "@ari-json/n8n-node-mcp-server",
+  "version": "0.2.0",
+  "description": "MCP server for accessing N8N node information through Claude Desktop",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "n8n-node-mcp-server": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "node index.js"
+  },
+  "keywords": [
+    "mcp",
+    "n8n",
+    "claude",
+    "modelcontextprotocol",
+    "workflow",
+    "automation"
+  ],
+  "author": "ari-json",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "axios": "^1.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ari-json/n8n-node-mcp-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ari-json/n8n-node-mcp-server/issues"
+  },
+  "homepage": "https://github.com/ari-json/n8n-node-mcp-server#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+} 

@@ -5,7 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.2.0] - 2024-01-XX
+
+### Changed
+- **BREAKING**: Complete rewrite from Python to JavaScript/Node.js
+- Now installable via npm/npx for consistency with other MCP servers
+- Uses @modelcontextprotocol/sdk for MCP implementation
+- Simplified installation process - just use npx
+
+### Added
+- npm package publishing support
+- Direct npx execution without installation
+- Native JavaScript implementation for better performance
+
+### Removed
+- Python dependencies and structure
+- pip/uvx installation methods
+- Python-specific configuration
+
+## [0.1.1] - 2024-01-XX
 
 ### Added
 - GitHub Personal Access Token support for increased API rate limits (60 → 5,000 requests/hour)
@@ -19,7 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated documentation with token configuration instructions
 - Test script now shows token status and rate limit information
 
-## [0.1.1] - 2024-01-XX
+## [0.1.0] - 2024-01-XX
 
 ### Added
 - Initial release of N8N Node MCP Server
@@ -36,15 +54,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - No credentials or sensitive data stored
 - All data fetched directly from public GitHub and npm APIs
 
-## [0.1.0] - 2024-01-XX
-
-### Added
-- First public release
-- Basic MCP server implementation using FastMCP
-- Integration with N8N's GitHub repository
-- Support for Claude Desktop configuration
-- MIT License
-
-[Unreleased]: https://github.com/ari-json/n8n-node-mcp-server/compare/v0.1.1...HEAD
+[0.2.0]: https://github.com/ari-json/n8n-node-mcp-server/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/ari-json/n8n-node-mcp-server/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/ari-json/n8n-node-mcp-server/releases/tag/v0.1.0 
