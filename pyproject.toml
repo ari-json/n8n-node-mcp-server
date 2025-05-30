@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "n8n-node-mcp-server"
-version = "0.1.0"
+version = "0.1.1"
 description = "MCP server for accessing N8N node information"
 readme = "README.md"
 authors = [

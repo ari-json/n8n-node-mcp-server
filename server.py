@@ -8,6 +8,7 @@ from mcp.server.fastmcp import FastMCP
 import httpx
 import json
 import asyncio
+import os
 
 # Initialize FastMCP
 mcp = FastMCP("n8n-nodes")
@@ -16,6 +17,16 @@ mcp = FastMCP("n8n-nodes")
 GITHUB_API = "https://api.github.com/repos/n8n-io/n8n/contents"
 GITHUB_RAW = "https://raw.githubusercontent.com/n8n-io/n8n/master"
 
+# Get optional GitHub token from environment
+GITHUB_TOKEN = os.environ.get('GITHUB_TOKEN', '')
+
+def get_headers():
+    """Get headers for GitHub API requests"""
+    headers = {"Accept": "application/vnd.github.v3+json"}
+    if GITHUB_TOKEN:
+        headers["Authorization"] = f"Bearer {GITHUB_TOKEN}"
+    return headers
+
 @mcp.tool()
 async def list_all_nodes() -> str:
     """List all N8N nodes from their GitHub repository"""
@@ -23,7 +34,7 @@ async def list_all_nodes() -> str:
         # Get the nodes directory
         response = await client.get(
             f"{GITHUB_API}/packages/nodes-base/nodes",
-            headers={"Accept": "application/vnd.github.v3+json"}
+            headers=get_headers()
         )
         
         if response.status_code != 200:
@@ -47,7 +58,7 @@ async def get_node_details(node_name: str) -> str:
         # Get the node's TypeScript file
         node_url = f"{GITHUB_RAW}/packages/nodes-base/nodes/{node_name}/{node_name}.node.ts"
         
-        response = await client.get(node_url)
+        response = await client.get(node_url, headers=get_headers() if GITHUB_TOKEN else {})
         
         if response.status_code != 200:
             return f"Node '{node_name}' not found"
@@ -88,7 +99,7 @@ async def search_nodes(keyword: str) -> str:
     async with httpx.AsyncClient() as client:
         response = await client.get(
             f"{GITHUB_API}/packages/nodes-base/nodes",
-            headers={"Accept": "application/vnd.github.v3+json"}
+            headers=get_headers()
         )
         
         if response.status_code != 200:
@@ -113,7 +124,7 @@ async def get_node_code_snippet(node_name: str, lines: int = 50) -> str:
     async with httpx.AsyncClient() as client:
         node_url = f"{GITHUB_RAW}/packages/nodes-base/nodes/{node_name}/{node_name}.node.ts"
         
-        response = await client.get(node_url)
+        response = await client.get(node_url, headers=get_headers() if GITHUB_TOKEN else {})
         
         if response.status_code != 200:
             return f"Could not fetch code for '{node_name}'"
@@ -146,6 +157,27 @@ async def list_community_nodes() -> str:
         return f"""Community N8N Nodes on npm:
 
 {chr(10).join(nodes)}"""
+
+@mcp.tool()
+async def check_rate_limit() -> str:
+    """Check GitHub API rate limit status"""
+    async with httpx.AsyncClient() as client:
+        response = await client.get(
+            "https://api.github.com/rate_limit",
+            headers=get_headers()
+        )
+        
+        if response.status_code != 200:
+            return f"Error checking rate limit: {response.status_code}"
+        
+        data = response.json()
+        core = data.get('rate', {})
+        
+        return f"""GitHub API Rate Limit Status:
+- Limit: {core.get('limit', 'N/A')} requests/hour
+- Remaining: {core.get('remaining', 'N/A')} requests
+- Resets at: {core.get('reset', 'N/A')} (Unix timestamp)
+- Using token: {'Yes' if GITHUB_TOKEN else 'No (60 req/hour limit)'}"""
 
 def main():
     """Main entry point for the MCP server"""

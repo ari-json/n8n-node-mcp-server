@@ -17,6 +17,19 @@ async def test_connection():
     """Test basic MCP server functionality."""
     print("🧪 Testing N8N Node MCP Server...\n")
     
+    # Test 0: Check rate limit
+    print("0️⃣  Testing check_rate_limit()...")
+    try:
+        result = await server.check_rate_limit()
+        print("✅ Rate limit check successful")
+        lines = result.split('\n')
+        for line in lines:
+            if line.strip():
+                print(f"   {line}")
+        print()
+    except Exception as e:
+        print(f"❌ Error: {e}\n")
+    
     # Test 1: List all nodes
     print("1️⃣  Testing list_all_nodes()...")
     try:
@@ -94,7 +107,14 @@ async def test_connection():
     
     print("✨ Testing complete!")
     print("\nℹ️  Note: Some tests might fail if GitHub API is rate-limited")
-    print("   or if specific nodes don't exist in the repository.\n")
+    print("   or if specific nodes don't exist in the repository.")
+    
+    # Show token status
+    if os.environ.get('GITHUB_TOKEN'):
+        print("\n✅ Using GitHub token for higher rate limits (5,000 req/hour)")
+    else:
+        print("\n⚠️  No GitHub token found. Limited to 60 requests/hour.")
+        print("   Set GITHUB_TOKEN environment variable for higher limits.\n")
 
 
 if __name__ == "__main__":

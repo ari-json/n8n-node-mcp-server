@@ -8,6 +8,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- GitHub Personal Access Token support for increased API rate limits (60 → 5,000 requests/hour)
+- `check_rate_limit` tool to monitor GitHub API usage and limits
+- Environment variable support via GITHUB_TOKEN
+- .env.example file showing configuration options
+- Enhanced test script with rate limit checking
+
+### Changed
+- All GitHub API requests now use authentication headers when token is available
+- Updated documentation with token configuration instructions
+- Test script now shows token status and rate limit information
+
+## [0.1.1] - 2024-01-XX
+
+### Added
 - Initial release of N8N Node MCP Server
 - `list_all_nodes` tool to list all available N8N nodes
 - `get_node_details` tool to get detailed information about specific nodes
@@ -31,5 +45,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support for Claude Desktop configuration
 - MIT License
 
-[Unreleased]: https://github.com/YOUR_USERNAME/n8n-node-mcp-server/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/YOUR_USERNAME/n8n-node-mcp-server/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/YOUR_USERNAME/n8n-node-mcp-server/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/YOUR_USERNAME/n8n-node-mcp-server/releases/tag/v0.1.0 

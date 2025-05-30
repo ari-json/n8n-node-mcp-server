@@ -24,12 +24,14 @@ This MCP server allows Claude Desktop to directly access N8N's node repository, 
 3. **`search_nodes`** - Search for nodes by keyword to find relevant integrations quickly
 4. **`get_node_code_snippet`** - View the source code of any node to understand its implementation
 5. **`list_community_nodes`** - Discover community-contributed N8N nodes available on npm
+6. **`check_rate_limit`** - Check your current GitHub API rate limit status
 
 ## 📋 Prerequisites
 
 - Python 3.9 or higher
 - pip (Python package installer)
 - Claude Desktop application
+- (Optional) GitHub Personal Access Token for higher rate limits
 
 ## 🚀 Installation
 
@@ -66,6 +68,8 @@ pip install -e .
 
 ## ⚙️ Configuration
 
+### Basic Configuration
+
 Add the following configuration to your Claude Desktop config file:
 
 **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
@@ -83,13 +87,48 @@ Add the following configuration to your Claude Desktop config file:
 }
 ```
 
-**Important**: Replace `/absolute/path/to/n8n-node-mcp-server` with the actual path to your installation.
+### Enhanced Configuration with GitHub Token (Recommended)
+
+To avoid GitHub API rate limits (60 requests/hour → 5,000 requests/hour):
+
+1. Create a GitHub Personal Access Token:
+   - Go to https://github.com/settings/tokens
+   - Click "Generate new token (classic)"
+   - Give it a name like "N8N MCP Server"
+   - No special permissions needed (public repo access only)
+   - Copy the token
+
+2. Add the token to your Claude Desktop config:
+
+```json
+{
+  "mcpServers": {
+    "n8n-nodes": {
+      "command": "python",
+      "args": ["/absolute/path/to/n8n-node-mcp-server/server.py"],
+      "env": {
+        "GITHUB_TOKEN": "ghp_your_token_here"
+      }
+    }
+  }
+}
+```
+
+**Important**: 
+- Replace `/absolute/path/to/n8n-node-mcp-server` with the actual path to your installation
+- Replace `ghp_your_token_here` with your actual GitHub token
+- Keep your token secure and never commit it to version control
 
 ## 💬 Usage Examples
 
 Once configured, you can interact with N8N nodes through Claude Desktop:
 
 ### Example Prompts
+
+**Check API rate limit:**
+```
+"What's my GitHub API rate limit status?"
+```
 
 **List all available nodes:**
 ```
@@ -131,7 +170,11 @@ npm install -g @modelcontextprotocol/inspector
 
 2. Run the inspector:
 ```bash
+# Without GitHub token
 mcp-inspector python /path/to/server.py
+
+# With GitHub token
+GITHUB_TOKEN=ghp_your_token_here mcp-inspector python /path/to/server.py
 ```
 
 3. Open http://localhost:5173 in your browser to test the tools interactively
@@ -139,7 +182,11 @@ mcp-inspector python /path/to/server.py
 ### Running the test script
 
 ```bash
+# Without token
 python examples/test_connection.py
+
+# With token
+GITHUB_TOKEN=ghp_your_token_here python examples/test_connection.py
 ```
 
 ## 🔧 Troubleshooting
@@ -160,8 +207,14 @@ python examples/test_connection.py
 - Check file permissions in the installation directory
 
 **Rate limiting from GitHub**
-- The server uses GitHub's public API which has rate limits
-- Consider adding a GitHub token for higher limits (future feature)
+- Without a token: 60 requests/hour limit
+- With a token: 5,000 requests/hour limit
+- Check your rate limit status using the tool
+- Add a GitHub token to your configuration (see above)
+
+**"401 Unauthorized" errors**
+- Your GitHub token may be invalid or expired
+- Generate a new token and update your configuration
 
 ## 🤝 Contributing
 

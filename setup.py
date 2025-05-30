@@ -13,7 +13,7 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
 
 setup(
     name="n8n-node-mcp-server",
-    version="0.1.0",
+    version="0.1.1",
     author="N8N Node MCP Server Contributors",
     description="MCP server for accessing N8N node information",
     long_description=long_description,
